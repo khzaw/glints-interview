@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
-
+from model_utils.models import TimeStampedModel
 from django.db import models
 
 
-class Author(models.Model):
+class Author(TimeStampedModel):
     name = models.CharField(max_length=1024)
     bio = models.TextField(blank=True)
     image = models.URLField(blank=True)
