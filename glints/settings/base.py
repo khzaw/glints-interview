@@ -46,11 +46,13 @@ DJANGO_APPS = [
 PROJECT_APPS = [
     'author',
     'book',
-    'crawler'
+    'crawler',
+    'api',
 ]
 
 THIRDPARTY_APPS = [
     'djangobower',
+    'rest_framework'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRDPARTY_APPS
