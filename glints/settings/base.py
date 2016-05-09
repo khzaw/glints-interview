@@ -1,3 +1,4 @@
+from datetime import timedelta
 import dj_database_url
 import os
 
@@ -41,10 +42,15 @@ PROJECT_APPS = [
 
 THIRDPARTY_APPS = [
     'djangobower',
-    'rest_framework'
+    'rest_framework',
+    'djcelery'
 ]
 
+
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRDPARTY_APPS
+
+import djcelery
+djcelery.setup_loader()
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,3 +141,11 @@ BOWER_INSTALLED_APPS = (
     'jquery',
     'lodash',
 )
+
+CELERY_SCHEDULE = {
+    'scrape-every-10-minutes': {
+        'task': 'tasks.scrape',
+        'schedule': timedelta(minutes=10),
+        'args': (16, 16)
+    }
+}
