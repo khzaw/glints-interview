@@ -10,7 +10,7 @@ class Book(TimeStampedModel):
     author = models.ForeignKey(Author)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    url = models.URLField(blank=True)
+    image = models.TextField(blank=True)
     tags = models.ManyToManyField('Tag', related_name='books', blank=True)
 
     def __unicode__(self):
