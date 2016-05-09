@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ author.name }}{% endblock title %}
+
+{% block content %}
+  <div class="container author-detail">
+    <h1 class="title">{{ author.name }}</h1>
+    <img class="image" src="{{ author.image }}">
+    <p class="bio">{{ author.bio }}</p>
+  </div>
+{% endblock content %}

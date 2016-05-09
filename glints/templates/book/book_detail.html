@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ book.title }}{% endblock title %}
+
+{% block content %}
+  <div class="container book-detail">
+    <h1 class="title">{{ book.title }}</h1>
+    <img class="image" src="{{ book.image }}" />
+    <a class="author" href="{% url 'author:detail' book.author.pk %}">{{ book.author.name }}</a>
+    <p class="description">{{ book.description }}</p>
+    <span class="rating">{{ book.rating }}</span>
+    <span class="price">&#36; {{ book.price }}<span>
+  </div>
+{% endblock content %}

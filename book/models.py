@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from model_utils.models import TimeStampedModel
 from django.db import models
+from django.utils.text import slugify
 from author.models import Author
 
 
@@ -12,6 +13,10 @@ class Book(TimeStampedModel):
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
     image = models.TextField(blank=True)
     tags = models.ManyToManyField('Tag', related_name='books', blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Book, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title

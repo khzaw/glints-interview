@@ -51,7 +51,8 @@ def get_book_data(url, keyword):
     print 'Scraping %s' % title
 
     desc = retrieve(soup, '#bookDescription_feature_div noscript')
-    price = float(retrieve(soup, 'span.a-color-price')[1:])
+
+    price = float(retrieve(soup, 'span.a-color-price')[1:].split('-')[0].strip())
     rating_text = retrieve(soup, 'a[href="#customerReviews"] span.a-icon-alt')
     if rating_text:
         rating = float(rating_text[:rating_text.find('out') - 1])

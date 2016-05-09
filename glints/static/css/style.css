@@ -1,0 +1,67 @@
+/* Base */
+img {
+  max-width: 100%;
+}
+
+/* Sectoins */
+.container {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+  margin-bottom: 0;
+  max-width: 100rem;
+}
+
+/* footer */
+.footer .container {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+/* header */
+.header {
+  background-color: #f4f5f6;
+  padding-top: 1rem;
+}
+@media(min-width: 40rem) {
+  .header {
+    padding-top: 5rem;
+  }
+}
+.header .container {
+  position: relative;
+  border-top: 0;
+  text-align: center;
+}
+.header .title {
+  font-family: 'Gotham Rounded A', 'Gotham Rounded B', 'Helvetica Neue', Arial, sans-serif;
+}
+.header.img {
+  height: 15rem;
+  margin-bottom: 2rem;
+}
+.header + section {
+  border-top: 0;
+}
+.header .button {
+  margin-top: 2rem;
+}
+@media(min-width: 40rem) {
+  .header .button {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
+}
+
+/* books list */
+.books-list {
+}
+.books-list .book-image {
+  border-radius: 5%;
+  height: 20rem;
+}
+.books-list .book-content {
+  flex: 3;
+}
+.books-list .book-rating {
+}
+
