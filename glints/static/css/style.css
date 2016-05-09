@@ -65,3 +65,16 @@ img {
 .books-list .book-rating {
 }
 
+/* pagination */
+.pagination {
+  list-style: none;
+  margin: auto;
+}
+.pagination li {
+  float: left;
+  margin-right: 3em;
+}
+.pagination li.current {
+  text-decoration: underline;
+
+}
