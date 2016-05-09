@@ -36,21 +36,16 @@ DJANGO_APPS = [
 PROJECT_APPS = [
     'author',
     'book',
-    'crawler',
     'api',
 ]
 
 THIRDPARTY_APPS = [
     'djangobower',
-    'rest_framework',
-    'djcelery'
+    'rest_framework'
 ]
 
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRDPARTY_APPS
-
-import djcelery
-djcelery.setup_loader()
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,11 +136,3 @@ BOWER_INSTALLED_APPS = (
     'jquery',
     'lodash',
 )
-
-CELERY_SCHEDULE = {
-    'scrape-every-10-minutes': {
-        'task': 'tasks.scrape',
-        'schedule': timedelta(minutes=10),
-        'args': (16, 16)
-    }
-}

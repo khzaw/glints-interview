@@ -8,10 +8,13 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-  <div>
-  {% block content %}
-  
-  {% endblock %}
+  <div class="mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header">
+    </header>
+    <div class="mdl-layout-icon"></div>
+      {% block content %}
+      
+      {% endblock %}
   </div>
   <script src="{% components 'material-design-lite/material.min.js' %}"></script>
 </body>

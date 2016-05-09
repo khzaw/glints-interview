@@ -48,16 +48,34 @@ def get_book_data(url, keyword):
     if not title:
         return
 
+    print 'Scraping %s' % title
+
     desc = retrieve(soup, '#bookDescription_feature_div noscript')
     price = float(retrieve(soup, 'span.a-color-price')[1:])
     rating_text = retrieve(soup, 'a[href="#customerReviews"] span.a-icon-alt')
-    rating = float(rating_text[:rating_text.find('out') - 1])
+    if rating_text:
+        rating = float(rating_text[:rating_text.find('out') - 1])
+    else:
+        rating = 0.0
     book_image = retrieve(soup, 'img#imgBlkFront', str_type=ATTR, attr='src')
 
     author_name = retrieve(soup, 'span.author a[data-asin]')
-    author_link = 'http://www.amazon.com' + retrieve(soup, 'a.contributorNameID', str_type=ATTR, attr='href')
-    bio, image = get_author_info(author_link)
-    author, created = Author.objects.get_or_create(name=author_name, bio=bio, image=image)
+    if author_name:
+        author, created = Author.objects.get_or_create(name=author_name)
+
+        author_link = retrieve(soup, 'a.contributorNameID', str_type=ATTR, attr='href')
+        if author_link:
+            author_link = 'http://www.amazon.com' + author_link
+            bio, image = get_author_info(author_link)
+            if created:
+                if bio:
+                    author.bio = bio
+                if image:
+                    author.image = image
+                author.save()
+    else:
+        # Don't care about contributors (authors without a author profile on Amazon)
+        return
 
 
     book, created = Book.objects.get_or_create(title=title, description=desc, author=author, price=price,
@@ -65,7 +83,7 @@ def get_book_data(url, keyword):
     book.save()
     book.tags.add(tag)
 
-    print 'Scraped %s' % title
+    print 'Scraped %s\n' % title
 
 
 
@@ -77,12 +95,11 @@ def get_author_info(url):
     image = retrieve(soup, '.ap-author-image', str_type=ATTR, attr='src')
     return bio, image
 
-
 def scrape():
     KEYWORDS = [
+        'python',
         'javascript',
         'css',
-        'python',
         'java',
         'go',
         'ruby',
@@ -91,8 +108,8 @@ def scrape():
         'ocaml'
     ]
     for keyword in cycle(KEYWORDS):
-        links =  get_books_links(keyword=keyword)
+        links = get_books_links(keyword=keyword)
         for book in links:
             get_book_data(book, keyword)
-            time.sleep(60)
-        time.sleep(60)
+            time.sleep(30)
+        time.sleep(30)

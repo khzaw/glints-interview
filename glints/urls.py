@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^book/', include('book.urls', namespace='book')),
     url(r'^api/', include('api.urls', namespace='api')),
+    url(r'^author/', include('author.urls', namespace='author'))
 
 ]

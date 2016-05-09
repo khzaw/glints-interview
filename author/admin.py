@@ -8,7 +8,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
     def show_image(self, obj):
         if obj.image:
-            return u'<img src="%s" height="60" width="60">' % (obj.image)
+            return u'<img src="%s" height="100" width="80">' % (obj.image)
         return ''
     show_image.short_description = 'Thumbnail'
     show_image.allow_tags = True

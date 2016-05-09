@@ -7,7 +7,7 @@ from author.models import Author
 class Book(TimeStampedModel):
     title = models.CharField(max_length=1024)
     description = models.TextField(blank=True)
-    author = models.ForeignKey(Author)
+    author = models.ForeignKey(Author, blank=True, null=True, related_name='books')
     price = models.DecimalField(max_digits=8, decimal_places=2)
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
     image = models.TextField(blank=True)
@@ -18,6 +18,10 @@ class Book(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+    def get_books(self, tag):
+        return Book.objects.filter(tags__name=tag)
+
 
 
 class Tag(TimeStampedModel):
