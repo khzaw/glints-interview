@@ -11,6 +11,16 @@ img {
   max-width: 100rem;
 }
 
+/* navigation */
+.navigation  ul {
+  list-style: none;
+  padding-left: 2rem;
+}
+.navigation  ul li {
+  float: left;
+  margin-right: 3rem;
+}
+
 /* footer */
 .footer .container {
   padding-bottom: 0;
