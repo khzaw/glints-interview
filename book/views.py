@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from .serializers import BookSerializer
-from .models import Book
+from .models import Book, Tag
 
 class BookListView(ListView):
     model = Book
@@ -12,6 +12,7 @@ class BookListView(ListView):
     context_object_name = 'books'
 
     def get_context_data(self, **kwargs):
+        tags = Tag.objects.all().distinct()
         context = super(BookListView, self).get_context_data(**kwargs)
         adjacent_pages = 2
         page_number = context['page_obj'].number
@@ -29,6 +30,7 @@ class BookListView(ListView):
             'page_numbers': page_numbers,
             'show_first': 1 not in page_numbers,
             'show_last': num_pages not in page_numbers,
+            'tags': tags
         })
         return context
 

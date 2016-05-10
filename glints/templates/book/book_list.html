@@ -4,32 +4,48 @@
 
 {% block content %}
 
-  <h5 class="title">Available Books</h5>
-  <p>Here are a list of avilable books in the system.</p>
+  <div class="row">
+    <div class="column">
+      <h5 class="title">Available Books</h5>
+      <p>Here are a list of avilable books in the system.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div clas="column">
 
-  <div class="container books-list">
+      <div class="container books-list">
+        <ul class="books-list">
+        {% for book in books %}
+          <li class="row">
+            <div class="book-image column">
+              <a href="{% url 'book:detail' book.pk %}"><img src="{{ book.image }}" class="book-image"></a>
+            </div>
+            <div class="book-content column">
+              <h5><a href="{% url 'book:detail' book.pk %}">{{ book.title|truncatewords:15 }}</a></h5>
+              <div class="book-details">
+                <a href="{% url 'author:detail' book.author.pk %}"><img class="book-author-image" src="{{ book.author.image }}"></a>
+                <a class="book-author" href="{% url 'author:detail' book.author.pk %}">{{ book.author.name }}</a>
+                <span class="book-price">&#36; {{ book.price }}</span>
+              </div>
+              <p>{{ book.description|truncatewords:50 }}</p>
+              <span class="book-rating">Rating: {{ book.rating }} / 5.0</span>
+            </div>
+          </li>
+        {% endfor %}
 
-    <ul class="books-list">
+        </ul>
 
-    {% for book in books %}
-      <li class="row">
-        <div class="book-image column">
-          <a href="{% url 'book:detail' book.pk %}"><img src="{{ book.image }}" class="book-image"></a>
-        </div>
-        <div class="book-content column">
-          <h5><a href="{% url 'book:detail' book.pk %}">{{ book.title|truncatewords:15 }}</a></h5>
-          <a class="book-author" href="{% url 'author:detail' book.author.pk %}">{{ book.author.name }}</a>
-          <span class="book-price">&#36; {{ book.price }}</span>
-          <p>{{ book.description|truncatewords:50 }}</p>
-          <span class="book-rating">{{ book.rating }}</span>
-        </div>
-      </li>
-    {% endfor %}
+        {% include 'snippets/pagination.html' %}
 
-    </ul>
-
-    {% include 'snippets/pagination.html' %}
-
+      </div>
+    </div>
+    <div class="column tags-list-container">
+      <ul class="column tags-list">
+      {% for tag in tags %}
+        <li><a href="">{{ tag.name }}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
   </div>
 
 {% endblock content %}
