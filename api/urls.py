@@ -9,5 +9,5 @@ router.register(r'tags', TagViewSet)
 
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^', include(router.urls), name="index"),
 ]

@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^books/', include('book.urls', namespace='book')),
     url(r'^api/', include('api.urls', namespace='api')),
     url(r'^authors/', include('author.urls', namespace='author')),
-    url(r'^$', BookListRedirectView.as_view())
+    url(r'^writeup/', include('writeup.urls', namespace='writeup')),
+    url(r'^$', BookListRedirectView.as_view(), name='index'),
 ]

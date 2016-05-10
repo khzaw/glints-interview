@@ -35,6 +35,7 @@ PROJECT_APPS = [
     'author',
     'book',
     'api',
+    'writeup'
 ]
 
 THIRDPARTY_APPS = [
