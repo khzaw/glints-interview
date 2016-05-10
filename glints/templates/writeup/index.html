@@ -1,12 +1,82 @@
 {% extends 'base.html' %}
+{% block title %}Write Up{% endblock %}
 {% block content %}
-<h2>Write Up</h2>
-  <h4>
+  <h2>Write Up</h2>
+  <h4>Brief</h4>
   <p>
   This is my submission to the Glints Take Home Interview challenge which is to design a web app that allows users to browse books based on a skill they wish to pick up. It will scrape and pass data from the first page search results for books of a given tag and store it in the database. There is a web interface for the user to browse the system to view the books, the information and biography data of the author, filter books by a category, view books by a specific author. Furthermore, there is an admin interface and  an RESTful API on all models (books, authors, tags) and allows all HTTP methods (GET, POST, PUT, OPTIONS).
   </p>
 
-  <hr>
+  <h4>Scraping</h4>
+    <p>
+    As indicated in the requirements, scraping of books is done from the first page of amazon search results. Initially from the search results page, I would scrape individual links of the books and from each individual books, I would scrape and parse details of each book such as the title, description, rating, price, image data and the link of the author. From there, I would follow the link of the author to retrieve the author’s image and the biography if there is any. There were a lot of inconsistencies regarding the nature of the html structure for different types of books and different types of authors. I have tried my best to cater for all possible scenarios. Some examples of those anomalies are sometimes there can be books written by authors who don’t have an author profile on Amazon yet. My scraping will skip such entries. Also, the price data can be a range instead of one decimal number. In that case, I will scrape the first number. (12.00 if the html data is 12.00 - 14.00 i.e.,)
+    </p>
+    <p>
+    The categories that we will be scraping are predefined in the <a href="https://github.com/khzaw/glints-interview/blob/master/book/tasks.py#L100-109">code.</a>and the scraping will be done as a cronjob periodically every hour. However, while if the parsed book/author/tag is already in the database, it won’t be saved and only newer entries will be saved.
+    </p>
 
-  <h4>Installation</h4>
+  <h4>API</h4>
+  <p>
+  All models have API calls available. The root of the API calls is <a href="/api">/api/</a>. Books are available at <a href="/api/books">/api/books</a>. Authors are available at <a href="/api/authors">/api/authors</a>. Tags are available at <a href="/api/tags">/api/tags</a>. In book resources, I have also serialised the ForiegnKey relationship with the Author model and ManyToMany relationship with the Tags model. The document doesn’t mention anything specific about the nature  of the return results, so I make reasonable assumptions where necessary. The API calls have paginations included with the usual “limit” and “offset” GET parameters. And all API calls support all HTTP verbs <code>GET</code>, <code>POST</code>, <code>HEAD</code>, <code>OPTIONS</code>. If you are logged in, you can try adding via the browsable interface as well as <code>curl</code> commands.
+  </p>
+
+  <h4>Website</h4>
+  <p>
+  The user can view all the books available in the system. The listview has pagination and filtering by tags. From there, detailed view of the books are available as well as the detailed viewed of the author page.
+  </p>
+  <p>
+  The admin interface is available at <a href="/admin">/admin/</a>.
+  </p>
+
+  <h4>Installation and Local Setup</h4>
+  <ul>
+    <li>Clone the project</li>
+    <li>Install python, postgres, bower on your system. Use postgres app from heroku if you are on OSX.</li>
+    <li>Create a virtual environment for the project. If you have python in your system,</li>
+    <pre>
+      pip install virtualenv virtualenvwrapper
+      mkvirtualenv glints-env
+      workon glints-env
+    </pre>
+    <li>
+      From there, install the dependencies listed in the <code>requirements.txt</code>
+    </li>
+    <pre>
+      pip install -r requirements.txt
+    </pre>
+    <li>Create a local postgres database. Refer to <code>settings/local.py</code></li>
+    <pre>
+      createdb glintsdb
+    </pre>
+    <li>
+      Migrate the database schema and settings.
+    </li>
+    <pre>
+      python manage.py migrate
+    </pre>
+    <li>
+      Create a local superuser which can login to the admin interface
+    </li>
+    <pre>
+      python manage.py createsuperuser
+    </pre>
+    <li>
+      Install bower dependencies
+    </li>
+    <pre>
+      python manage.py bower install
+    </pre>
+    <li>
+      Run the server.
+    </li>
+    <pre>
+      python manage.py runserver
+    </pre>
+    <li>
+      Initiall the database will be empty. Scrape some books with this command.
+    </li>
+    <pre>
+      python manage.py scrape
+    </pre>
+  </ul>
 {% endblock content %}
