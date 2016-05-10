@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from book.views import BookListRedirectView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^books/', include('book.urls', namespace='book')),
     url(r'^api/', include('api.urls', namespace='api')),
-    url(r'^authors/', include('author.urls', namespace='author'))
-
+    url(r'^authors/', include('author.urls', namespace='author')),
+    url(r'^$', BookListRedirectView.as_view())
 ]

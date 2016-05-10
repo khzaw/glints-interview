@@ -1,11 +1,13 @@
+from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets, generics
-from rest_framework.response import Response
-from .serializers import BookSerializer
 from .models import Book, Tag
 import string
+
+
+class BookListRedirectView(RedirectView):
+    permanent = True
+    pattern_name = 'book:list'
 
 
 class BookListView(ListView):
@@ -49,12 +51,3 @@ class BookListView(ListView):
 class BookDetailView(DetailView):
     model = Book
 
-
-
-class BookViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited
-    """
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    lookup_field = 'author_id'
