@@ -114,3 +114,16 @@ img {
 .tags-list-container .tags-list {
   list-style: none;
 }
+
+/* author-detail */
+.author-detail {
+  display: flex;
+}
+.author-detail img {
+  border-radius: 50%;
+  height: 20rem;
+  width: 20rem;
+}
+.author-detail .bio {
+  text-align: justify;
+}

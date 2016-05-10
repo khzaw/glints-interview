@@ -3,9 +3,15 @@
 {% block title %}{{ author.name }}{% endblock title %}
 
 {% block content %}
-  <div class="container author-detail">
-    <h1 class="title">{{ author.name }}</h1>
-    <img class="image" src="{{ author.image }}">
-    <p class="bio">{{ author.bio }}</p>
+  <div class="author-detail">
+    <div class="row">
+      <div class="column">
+        <h1 class="title">{{ author.name }}</h1>
+      <div>
+      <div class="column">
+        <img class="image" src="{{ author.image }}">
+        <p class="bio">{{ author.bio }}</p>
+      </div>
+    </div>
   </div>
 {% endblock content %}
