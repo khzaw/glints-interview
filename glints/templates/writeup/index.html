@@ -12,7 +12,7 @@
     As indicated in the requirements, scraping of books is done from the first page of amazon search results. Initially from the search results page, I would scrape individual links of the books and from each individual books, I would scrape and parse details of each book such as the title, description, rating, price, image data and the link of the author. From there, I would follow the link of the author to retrieve the author’s image and the biography if there is any. There were a lot of inconsistencies regarding the nature of the html structure for different types of books and different types of authors. I have tried my best to cater for all possible scenarios. Some examples of those anomalies are sometimes there can be books written by authors who don’t have an author profile on Amazon yet. My scraping will skip such entries. Also, the price data can be a range instead of one decimal number. In that case, I will scrape the first number. (12.00 if the html data is 12.00 - 14.00 i.e.,)
     </p>
     <p>
-    The categories that we will be scraping are predefined in the <a href="https://github.com/khzaw/glints-interview/blob/master/book/tasks.py#L100-109">code.</a>and the scraping will be done as a cronjob periodically every hour. However, while if the parsed book/author/tag is already in the database, it won’t be saved and only newer entries will be saved.
+    The categories that we will be scraping are predefined in the <a href="https://github.com/khzaw/glints-interview/blob/master/book/tasks.py#L100-109">code.</a>and the scraping will be done on the server as a cronjob periodically every hour. There is also checking for duplicates after parsing and only non duplicate entries will be saved. 
     </p>
 
   <h4>API</h4>
