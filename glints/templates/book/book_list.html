@@ -6,8 +6,8 @@
 
   <div class="row">
     <div class="column">
-      <h5 class="title">Available Books</h5>
-      <p>Here are a list of avilable books in the system.</p>
+      <h5 class="title">Available {{ filtered_tags }} Books</h5>
+      <p>Here are a list of avilable {{ filtered_tags }} books in the system.</p>
     </div>
   </div>
   <div class="row">
@@ -28,6 +28,12 @@
                 <span class="book-price">&#36; {{ book.price }}</span>
               </div>
               <p>{{ book.description|truncatewords:50 }}</p>
+              <div class="book-tags float-left">
+                <span>Tags: </span>
+                {% for tag in book.tags.all %}
+                <span><a href="{% url 'book:list' %}?tags={{ tag.name }}">{{ tag.name }}</a>&nbsp;<span>
+                {% endfor %}
+              </div>
               <span class="book-rating">Rating: {{ book.rating }} / 5.0</span>
             </div>
           </li>
@@ -42,7 +48,7 @@
     <div class="column tags-list-container">
       <ul class="column tags-list">
       {% for tag in tags %}
-        <li><a href="">{{ tag.name }}</a></li>
+        <li><a href="{% url 'book:list' %}?tags={{ tag.name }}">{{ tag.name }}</a></li>
       {% endfor %}
       </ul>
     </div>

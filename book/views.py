@@ -5,11 +5,19 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from .serializers import BookSerializer
 from .models import Book, Tag
+import string
+
 
 class BookListView(ListView):
     model = Book
     paginate_by = 15
     context_object_name = 'books'
+
+    def get_queryset(self):
+        get_params = self.request.GET.getlist('tags')
+        if get_params:
+            return Book.objects.filter(tags__name__in=get_params)
+        return super(BookListView, self).get_queryset()
 
     def get_context_data(self, **kwargs):
         tags = Tag.objects.all().distinct()
@@ -26,11 +34,14 @@ class BookListView(ListView):
 
         page_numbers = [n for n in xrange(start_page, end_page) \
                         if n > 0 and n <= num_pages]
+
+        filtered_tags = ', '.join(string.capitalize(t) for t in self.request.GET.getlist('tags'))
         context.update({
             'page_numbers': page_numbers,
             'show_first': 1 not in page_numbers,
             'show_last': num_pages not in page_numbers,
-            'tags': tags
+            'tags': tags,
+            'filtered_tags': filtered_tags
         })
         return context
 
