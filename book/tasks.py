@@ -106,9 +106,10 @@ def scrape():
         'ruby',
         'clojure',
         'haskell',
-        'ocaml'
+        'ocaml',
     ]
-    for keyword in cycle(KEYWORDS):
+    #  for keyword in cycle(KEYWORDS):
+    for keyword in KEYWORDS:
         links = get_books_links(keyword=keyword)
         for book in links:
             get_book_data(book, keyword)
