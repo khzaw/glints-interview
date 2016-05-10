@@ -3,12 +3,18 @@
 {% block title %}{{ book.title }}{% endblock title %}
 
 {% block content %}
-  <div class="container book-detail">
+  <div class="book-detail">
     <h1 class="title">{{ book.title }}</h1>
-    <img class="image" src="{{ book.image }}" />
-    <a class="author" href="{% url 'author:detail' book.author.pk %}">{{ book.author.name }}</a>
-    <p class="description">{{ book.description }}</p>
-    <span class="rating">{{ book.rating }}</span>
-    <span class="price">&#36; {{ book.price }}<span>
+    <div class="book-detail-wrapper">
+      <div class="image-and-price">
+        <img class="image" src="{{ book.image }}" />
+        <span class="price">&#36; {{ book.price }}<span>
+      </div>
+      <div class="book-detail-info">
+        <a class="author" href="{% url 'author:detail' book.author.pk %}"><h3>{{ book.author.name }}</h3></a>
+        <p class="description">{{ book.description }}</p>
+        <span class="rating">Rating: {{ book.rating }} / 5.0 </span>
+      </div>
+    </div>
   </div>
 {% endblock content %}

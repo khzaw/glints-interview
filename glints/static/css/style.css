@@ -11,12 +11,16 @@ img {
   max-width: 100rem;
 }
 
+.main-container {
+  padding-top: 0;
+}
+
 /* navigation */
-.navigation  ul {
+.navigation  .nav-list {
   list-style: none;
   padding-left: 2rem;
 }
-.navigation  ul li {
+.navigation  .nav-list li {
   float: left;
   margin-right: 3rem;
 }
@@ -63,6 +67,9 @@ img {
 }
 
 /* books list */
+.books-list {
+  padding-top: 0;
+}
 .books-list .row {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
@@ -125,5 +132,44 @@ img {
   width: 20rem;
 }
 .author-detail .bio {
+  text-align: justify;
+}
+
+/* book-detail */
+.book-detail .book-detail-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.book-detail .image-and-price {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2.5rem;
+}
+.book-detail .image-and-price  img{
+  border-radius: 10px;
+  height: 100%;
+}
+.book-detail .image-and-price .price {
+  font-size: 3rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.book-detail .book-detail-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+.book-detail .book-detail-info .author {
+  font-size: 3rem;
+}
+.book-detail .book-detail-info .rating {
+  font-size: 2rem;
+  margin-left: auto;
+}
+
+.book-detail .description {
   text-align: justify;
 }
