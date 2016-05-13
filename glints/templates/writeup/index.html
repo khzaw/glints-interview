@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}Write Up{% endblock %}
 {% block content %}
-  <h2>Write Up</h2>
+  <div class="float-right logo">
+    <h2 style="text-align: center;">Repo</h2>
+    <a href="https://github.com/khzaw/glints-interview"><img src="{% static 'img/github.png' %}" /></a>
+  </div>
+  <div class="clearfix"></div>
+  <h1>Write Up</h1>
   <h4>Brief</h4>
   <p>
   This is my submission to the Glints Take Home Interview challenge which is to design a web app that allows users to browse books based on a skill they wish to pick up. It will scrape and pass data from the first page search results for books of a given tag and store it in the database. There is a web interface for the user to browse the system to view the books, the information and biography data of the author, filter books by a category, view books by a specific author. Furthermore, there is an admin interface and  an RESTful API on all models (books, authors, tags) and allows all HTTP methods (GET, POST, PUT, OPTIONS).
@@ -9,10 +15,10 @@
 
   <h4>Scraping</h4>
     <p>
-    As indicated in the requirements, scraping of books is done from the first page of amazon search results. Initially from the search results page, I would scrape individual links of the books and from each individual books, I would scrape and parse details of each book such as the title, description, rating, price, image data and the link of the author. From there, I would follow the link of the author to retrieve the author’s image and the biography if there is any. There were a lot of inconsistencies regarding the nature of the html structure for different types of books and different types of authors. I have tried my best to cater for all possible scenarios. Some examples of those anomalies are sometimes there can be books written by authors who don’t have an author profile on Amazon yet. My scraping will skip such entries. Also, the price data can be a range instead of one decimal number. In that case, I will scrape the first number. (12.00 if the html data is 12.00 - 14.00 i.e.,)
+    As indicated in the requirements, scraping of books is done from the first page of amazon search results. Initially from the search results page, I would scrape individual links of the books and from following each individual book links, I would scrape and parse details of each book such as the title, description, rating, price, image data and the link of the author. From there, I would follow the link of the author to retrieve the author’s image and the biography if there is any. There were a lot of inconsistencies regarding the nature of the html structure for different types of books and different types of authors. I have tried my best to cater for all possible scenarios. Some examples of those anomalies are sometimes there can be books written by authors who don’t have an author profile on Amazon yet, the differences in html structures between ebooks and physical books profiles. My scraping will skip such entries. Also, the price data can be a range instead of one decimal number. In that case, I will scrape the first number. (12.00 if the html data is 12.00 - 14.00 i.e.,)
     </p>
     <p>
-    The categories that we will be scraping are predefined in the <a href="https://github.com/khzaw/glints-interview/blob/master/book/tasks.py#L100-109">code.</a>and the scraping will be done on the server as a cronjob periodically every hour. There is also checking for duplicates after parsing and only non duplicate entries will be saved. 
+    The categories that we will be scraping are predefined in the <a href="https://github.com/khzaw/glints-interview/blob/master/book/tasks.py#L100-109">code.</a>and the scraping will be done on the server as a cronjob periodically every hour. There is also checking for duplicates after parsing and only non duplicate entries will be saved.
     </p>
 
   <h4>API</h4>

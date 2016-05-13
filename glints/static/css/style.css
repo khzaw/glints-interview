@@ -173,3 +173,7 @@ img {
 .book-detail .description {
   text-align: justify;
 }
+
+.logo h2 {
+  text-align: center;
+}
